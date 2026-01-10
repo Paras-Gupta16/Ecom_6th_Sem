@@ -48,7 +48,7 @@ public class CustomerService {
     public String deleteCustomerDetails(String customerEmail){
         try{
             customerRepository.deleteByCustomerEmail(customerEmail);
-            return "Customer with Email:"+customerEmail+"deleted";
+            return "Customer with Email:"+customerEmail+" deleted";
         }catch (Exception e){
             return e.getMessage();
         }
