@@ -27,7 +27,7 @@ public class CustomerService {
             customer.setDateCreated(LocalDateTime.now());
             String hashPwd = customerSecurity
                     .passwordEncoder()
-                    .encode(customer.getCustomerPassword()) + salt  ;
+                    .encode(customer.getCustomerPassword()+salt) ;
             customer.setCustomerPassword(hashPwd);
             customerRepository.save(customer);
             return "Data Save";

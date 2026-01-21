@@ -24,4 +24,5 @@ public class Customer {
     private String contactNumber;
     private String gender;
     private LocalDateTime dateCreated;
+    private String role;
 }
