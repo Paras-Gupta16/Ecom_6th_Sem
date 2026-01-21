@@ -29,6 +29,9 @@ public class CustomerService {
                     .passwordEncoder()
                     .encode(customer.getCustomerPassword()+salt) ;
             customer.setCustomerPassword(hashPwd);
+            if(customerRepository.findByCustomerEmail(customer.getCustomerEmail())!=null){
+                return "User Email Id already exists";
+            }
             customerRepository.save(customer);
             return "Data Save";
         }catch (Exception e){
