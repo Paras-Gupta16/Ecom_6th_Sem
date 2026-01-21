@@ -22,6 +22,11 @@ public class CustomerController {
         this.customerService = customerService;
     }
 
+    @GetMapping("/health")
+    public String seeHealth(){
+        return "Health is Ok";
+    }
+
     @PostMapping("/save/details")
     public ResponseEntity<?> saveCustomerDetails(@RequestBody Customer customer){
         try{
