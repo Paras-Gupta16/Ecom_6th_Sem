@@ -48,6 +48,7 @@ public class CustomerService {
         }
     }
 
+    // delete Customer by email_id
     public String deleteCustomerDetails(String customerEmail){
         try{
             customerRepository.deleteByCustomerEmail(customerEmail);
