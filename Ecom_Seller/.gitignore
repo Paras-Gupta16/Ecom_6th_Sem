@@ -4,7 +4,7 @@ target/
 !**/src/main/**/target/
 !**/src/test/**/target/
 src/main/resources/application.properties
-
+src/main/java/com/example/Ecom_Seller/utility/ApplicationConstants.java
 ### STS ###
 .apt_generated
 .classpath
