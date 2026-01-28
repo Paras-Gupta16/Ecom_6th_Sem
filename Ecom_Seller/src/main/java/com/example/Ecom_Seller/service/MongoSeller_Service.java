@@ -5,22 +5,36 @@ import java.util.List;
 
 import com.example.Ecom_Seller.entity.SellerEntity;
 import com.example.Ecom_Seller.repository.MongoSeller_Repo;
+import com.example.Ecom_Seller.security.Cors_PasswordEncode;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 
 @Service
 public class MongoSeller_Service {
 
     private final MongoSeller_Repo mongoSellerRepo;
+    private final Cors_PasswordEncode corsPasswordEncode;
 
-    public MongoSeller_Service(MongoSeller_Repo mongoSellerRepo) {
+    public MongoSeller_Service(MongoSeller_Repo mongoSellerRepo, Cors_PasswordEncode corsPasswordEncode) {
         this.mongoSellerRepo = mongoSellerRepo;
+        this.corsPasswordEncode = corsPasswordEncode;
     }
+
+    @Value("${app.security.pepper}")
+    private String salt;
 
     public String saveSeller(SellerEntity sellerEntity){
         try{
             if(mongoSellerRepo.findBySellerEmail(sellerEntity.getSellerEmail())!=null){
                 return "Email Id Already Exists";
             }
+            if(sellerEntity.getSellerPassword()==null){
+                return "Password can't be empty";
+            }
+            sellerEntity
+                    .setSellerPassword(corsPasswordEncode
+                            .passwordEncoder()
+                            .encode(sellerEntity.getSellerPassword()+salt));
             sellerEntity.setDateCreated(LocalDateTime.now());
             mongoSellerRepo.save(sellerEntity);
             return "Seller Details Saved";
